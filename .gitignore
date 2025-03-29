@@ -1,0 +1,53 @@
+# 依赖目录
+node_modules/
+.pnp/
+.pnp.js
+
+# 构建输出
+/backend/dist/
+/frontend/build/
+/frontend/.next/
+*.tsbuildinfo
+
+# 环境变量文件（除了示例文件）
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+!.env.railway
+
+# 日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# 缓存文件
+.npm/
+.yarn/
+/.cache
+.eslintcache
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 测试覆盖率报告
+/coverage/
+
+# 临时文件
+/tmp/
+/temp/
+
+# 其他
+.directory
+*.pid
+*.seed
+*.pid.lock
