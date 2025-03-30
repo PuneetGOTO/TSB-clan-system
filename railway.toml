@@ -1,13 +1,7 @@
 [build]
 builder = "nixpacks"
-rootDirectory = "backend"
-buildCommand = "npm run build"
-
-[build.nixpacksPlan]
-providers = ["node"]
 
 [deploy]
-startCommand = "npm run start:prod"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 100
 restartPolicyType = "ON_FAILURE"
