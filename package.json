@@ -1,0 +1,26 @@
+{
+  "name": "tsb-clan-system",
+  "version": "1.0.0",
+  "description": "The Strongest Battlegrounds Clan System",
+  "private": true,
+  "scripts": {
+    "build": "cd backend && npm install && npm run build",
+    "start:prod": "cd backend && npm run start:prod",
+    "test": "cd backend && npm test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PuneetGOTO/TSB-clan-system.git"
+  },
+  "keywords": [
+    "tsb",
+    "clan-system",
+    "nestjs",
+    "react"
+  ],
+  "author": "",
+  "license": "ISC"
+}
