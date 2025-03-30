@@ -1,39 +1,35 @@
-FROM node:16-alpine AS build
+FROM node:18-alpine AS build
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# 复制package.json和package-lock.json
+# 将package.json和package-lock.json（如果存在）复制到工作目录
 COPY package*.json ./
 
-# 安装所有依赖
-RUN npm ci
+# 安装依赖，跳过开发依赖
+RUN npm install --omit=dev
 
 # 复制源代码
 COPY . .
 
-# 编译TypeScript
+# 构建应用
 RUN npm run build
 
-# 生产环境镜像
-FROM node:16-alpine
+# 生产镜像
+FROM node:18-alpine AS production
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# 复制package.json和package-lock.json
-COPY package*.json ./
-
-# 仅安装生产依赖
-RUN npm ci --only=production
-
-# 从构建阶段复制编译后的代码
-COPY --from=build /usr/src/app/dist ./dist
-COPY --from=build /usr/src/app/.env* ./
+# 从构建阶段复制package.json和依赖
+COPY --from=build /app/package*.json ./
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
 
 # 设置环境变量
 ENV NODE_ENV=production
+ENV PORT=3000
 
-# 暴露端口
+# 暴露应用端口
 EXPOSE 3000
 
-# 启动应用
+# 启动命令
 CMD ["node", "dist/main"]

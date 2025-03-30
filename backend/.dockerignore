@@ -1,0 +1,34 @@
+# 版本控制
+.git
+.gitignore
+
+# 依赖目录
+node_modules
+npm-debug.log
+
+# 构建输出
+dist
+
+# 测试文件
+test
+coverage
+*.spec.ts
+
+# IDE和编辑器
+.idea
+.vscode
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 环境变量文件(会在运行时由Railway提供)
+.env
+.env.*
+!.env.example
+
+# 其他文件
+README.md
+LICENSE

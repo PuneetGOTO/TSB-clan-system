@@ -5,17 +5,17 @@ services:
   postgres:
     image: postgres:14-alpine
     container_name: tsb-postgres
-    ports:
-      - "5432:5432"
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: tsb
+      POSTGRES_DB: tsb_db
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - tsb-network
-    restart: unless-stopped
+      - tsb_network
 
   # 后端API服务
   backend:
@@ -23,24 +23,23 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: tsb-backend
-    ports:
-      - "3000:3000"
+    restart: always
     depends_on:
       - postgres
     environment:
       - NODE_ENV=production
-      - PORT=3000
       - DB_HOST=postgres
       - DB_PORT=5432
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
-      - DB_DATABASE=tsb
-      - DB_SYNCHRONIZE=false
-      - JWT_SECRET=tsb-jwt-secret-production
-      - FRONTEND_URL=http://localhost:3001
+      - DB_DATABASE=tsb_db
+      - PORT=3000
+      - JWT_SECRET=your_secret_key_here
+      - FRONTEND_URL=http://frontend:80
+    ports:
+      - "3000:3000"
     networks:
-      - tsb-network
-    restart: unless-stopped
+      - tsb_network
 
   # 前端服务
   frontend:
@@ -53,11 +52,11 @@ services:
     depends_on:
       - backend
     networks:
-      - tsb-network
+      - tsb_network
     restart: unless-stopped
 
 networks:
-  tsb-network:
+  tsb_network:
     driver: bridge
 
 volumes:
