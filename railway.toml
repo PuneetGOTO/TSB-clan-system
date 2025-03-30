@@ -1,8 +1,10 @@
 [build]
 builder = "nixpacks"
-nixpacksPlan = "node"
 rootDirectory = "backend"
 buildCommand = "npm run build"
+
+[build.nixpacksPlan]
+providers = ["node"]
 
 [deploy]
 startCommand = "npm run start:prod"
